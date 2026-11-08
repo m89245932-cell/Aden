@@ -1,0 +1,80 @@
+{
+  "entities": {
+    "Business": {
+      "title": "Business",
+      "description": "Local business listing in Aden",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string", "maxLength": 100 },
+        "nameAr": { "type": "string", "maxLength": 100 },
+        "category": { "type": "string", "maxLength": 50 },
+        "district": { "type": "string", "maxLength": 50 },
+        "address": { "type": "string", "maxLength": 200 },
+        "addressAr": { "type": "string", "maxLength": 200 },
+        "rating": { "type": "number" },
+        "reviewsCount": { "type": "number" },
+        "priceLevel": { "type": "string", "maxLength": 5 },
+        "whatsapp": { "type": "string", "maxLength": 30 },
+        "phone": { "type": "string", "maxLength": 30 },
+        "website": { "type": "string", "maxLength": 200 },
+        "verified": { "type": "boolean" },
+        "featured": { "type": "boolean" },
+        "image": { "type": "string", "maxLength": 500 },
+        "description": { "type": "string", "maxLength": 1000 },
+        "descriptionAr": { "type": "string", "maxLength": 1000 },
+        "hoursEn": { "type": "string", "maxLength": 100 },
+        "hoursAr": { "type": "string", "maxLength": 100 },
+        "ownerId": { "type": "string", "maxLength": 128 },
+        "views": { "type": "number" },
+        "leads": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["name", "nameAr", "category", "district", "whatsapp", "ownerId"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "Customer review for an Aden business",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "businessId": { "type": "string", "maxLength": 128 },
+        "authorName": { "type": "string", "maxLength": 80 },
+        "authorEmail": { "type": "string", "maxLength": 120 },
+        "rating": { "type": "number" },
+        "comment": { "type": "string", "maxLength": 500 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["businessId", "authorName", "rating", "comment", "userId"]
+    },
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Public user profile and role",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "maxLength": 120 },
+        "displayName": { "type": "string", "maxLength": 80 },
+        "role": { "type": "string", "enum": ["user", "merchant", "admin"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["uid", "email", "role"]
+    }
+  },
+  "firestore": {
+    "/businesses/{businessId}": {
+      "schema": "Business",
+      "description": "Public business listings"
+    },
+    "/businesses/{businessId}/reviews/{reviewId}": {
+      "schema": "Review",
+      "description": "Customer reviews on businesses"
+    },
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile records"
+    }
+  }
+}

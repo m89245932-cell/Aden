@@ -1,0 +1,6 @@
+{
+  "name": "AdenGo",
+  "description": "The premier local business directory, merchant platform, and smart city guide for Aden, Yemen.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
