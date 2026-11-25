@@ -1,4 +1,4 @@
-import { Business, District, Category, PricingPlan } from '../types/index';
+import { Business, District, Category, PricingPlan, Booking } from '../types/index';
 
 export const ADEN_DISTRICTS: District[] = [
   {
@@ -143,6 +143,7 @@ export const INITIAL_BUSINESSES: Business[] = [
     leads: 890,
     lat: 12.7758,
     lng: 45.0392,
+    acceptsBookings: true,
     createdAt: '2026-01-15'
   },
   {
@@ -175,6 +176,7 @@ export const INITIAL_BUSINESSES: Business[] = [
     leads: 520,
     lat: 12.7770,
     lng: 44.9815,
+    acceptsBookings: true,
     createdAt: '2026-01-10'
   },
   {
@@ -206,6 +208,7 @@ export const INITIAL_BUSINESSES: Business[] = [
     leads: 640,
     lat: 12.7885,
     lng: 45.0080,
+    acceptsBookings: true,
     createdAt: '2026-02-01'
   },
   {
@@ -261,6 +264,7 @@ export const INITIAL_BUSINESSES: Business[] = [
     leads: 290,
     lat: 12.8285,
     lng: 45.0320,
+    acceptsBookings: true,
     createdAt: '2026-02-15'
   },
   {
@@ -288,6 +292,7 @@ export const INITIAL_BUSINESSES: Business[] = [
     leads: 310,
     lat: 12.7482,
     lng: 44.8645,
+    acceptsBookings: true,
     createdAt: '2026-02-20'
   }
 ];
@@ -417,3 +422,87 @@ export const PRICING_PLANS: PricingPlan[] = [
     ctaAr: 'تواصل مع فريق النخبة'
   }
 ];
+
+export const INITIAL_BOOKINGS: Booking[] = [
+  {
+    id: 'book-101',
+    businessId: 'sira-seafood-crater',
+    businessName: 'Al-Sayyad Seafood & Mofa House',
+    businessNameAr: 'مطعم الصياد للمأكولات البحرية والموفى',
+    userId: 'user-fouad',
+    customerName: 'فؤاد سالم (Fouad Salem)',
+    customerPhone: '+967 771 234 567',
+    customerEmail: 'fouad.salem@example.com',
+    date: '2026-11-12',
+    time: '08:30 PM',
+    guestsCount: 4,
+    specialRequests: 'طاولة عائلية هادئة مطلة مباشرة على البحر وصيد اليوم مشوي موفى.',
+    status: 'pending',
+    createdAt: '2026-11-08T10:15:00Z'
+  },
+  {
+    id: 'book-102',
+    businessId: 'sira-seafood-crater',
+    businessName: 'Al-Sayyad Seafood & Mofa House',
+    businessNameAr: 'مطعم الصياد للمأكولات البحرية والموفى',
+    userId: 'user-tariq',
+    customerName: 'طارق الردفاني (Tareq)',
+    customerPhone: '+967 770 456 789',
+    customerEmail: 'tariq.radfan@example.com',
+    date: '2026-11-10',
+    time: '02:00 PM',
+    guestsCount: 6,
+    specialRequests: 'عزومة غداء عمل، يرجى تجهيز زربيان سمك ورشوش حار.',
+    status: 'confirmed',
+    merchantNotes: 'تم تأكيد الطاولة رقم 4 بالقسم العائلي.',
+    createdAt: '2026-11-07T16:20:00Z'
+  },
+  {
+    id: 'book-103',
+    businessId: 'coral-gulf-resort',
+    businessName: 'Coral Gulf Beach Hotel & Resort',
+    businessNameAr: 'فندق ومنتجع كورال جلف السياحي',
+    userId: 'user-anees',
+    customerName: 'د. أنيس الهلالي (Dr. Anees)',
+    customerPhone: '+967 733 889 911',
+    date: '2026-11-15',
+    time: '03:00 PM',
+    guestsCount: 2,
+    specialRequests: 'حجز شاليه شاطئي مطل على البحر مع إفطار.',
+    status: 'confirmed',
+    merchantNotes: 'تم حجز شاليه جولدمور B-12.',
+    createdAt: '2026-11-06T09:00:00Z'
+  },
+  {
+    id: 'book-104',
+    businessId: 'shamsan-specialty-coffee',
+    businessName: 'Shamsan Heights Artisan Roastery & Cafe',
+    businessNameAr: 'محمصة وكافيه قمم شمسان للبن المختص',
+    userId: 'user-reem',
+    customerName: 'ريم الشعيبي (Reem Al-Shoaibi)',
+    customerPhone: '+967 775 667 788',
+    date: '2026-11-09',
+    time: '05:00 PM',
+    guestsCount: 3,
+    specialRequests: 'ركن هادئ لاجتماع عمل مع توفر أفياش شحن لابتوب.',
+    status: 'pending',
+    createdAt: '2026-11-08T11:45:00Z'
+  },
+  {
+    id: 'book-105',
+    businessId: 'khormaksar-specialist-clinic',
+    businessName: 'Al-Amal Specialized Medical Center',
+    businessNameAr: 'مجمع الأمل الطبي التخصصي',
+    userId: 'user-nasser',
+    customerName: 'ناصر العدني (Nasser)',
+    customerPhone: '+967 770 998 877',
+    date: '2026-11-11',
+    time: '10:00 AM',
+    guestsCount: 1,
+    specialRequests: 'كشف واستشارة استشاري باطنية وقلب.',
+    status: 'confirmed',
+    merchantNotes: 'تم تأكيد الموعد رقم 3 صباحاً مع الدكتور الاستشاري.',
+    createdAt: '2026-11-08T08:30:00Z'
+  }
+];
+

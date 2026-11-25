@@ -28,6 +28,8 @@ service cloud.firestore {
       allow update: if (
         // Allow public counter increments (views/leads)
         (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['views', 'leads'])) ||
+        // Allow rating/reviews count updates on review addition
+        (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['rating', 'reviewsCount'])) ||
         // Or full edits by owner or admin
         (isSignedIn() && (resource.data.ownerId == request.auth.uid || isAdmin()))
       );
@@ -40,9 +42,31 @@ service cloud.firestore {
       }
     }
 
+    // User profile records
     match /users/{userId} {
       allow read: if isSignedIn() && (request.auth.uid == userId || isAdmin());
       allow write: if isSignedIn() && (request.auth.uid == userId || isAdmin());
+    }
+
+    // Customer table & appointment reservations
+    match /bookings/{bookingId} {
+      allow read: if isSignedIn() && (
+        resource.data.userId == request.auth.uid ||
+        isAdmin() ||
+        (exists(/databases/$(database)/documents/businesses/$(resource.data.businessId)) &&
+         get(/databases/$(database)/documents/businesses/$(resource.data.businessId)).data.ownerId == request.auth.uid)
+      );
+      allow create: if isSignedIn() && isValidId(bookingId) && (
+        request.resource.data.userId == request.auth.uid ||
+        request.resource.data.userId == null
+      );
+      allow update: if isSignedIn() && (
+        resource.data.userId == request.auth.uid ||
+        isAdmin() ||
+        (exists(/databases/$(database)/documents/businesses/$(resource.data.businessId)) &&
+         get(/databases/$(database)/documents/businesses/$(resource.data.businessId)).data.ownerId == request.auth.uid)
+      );
+      allow delete: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
     }
 
     match /admins/{adminId} {

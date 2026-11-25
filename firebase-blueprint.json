@@ -51,16 +51,46 @@
     },
     "UserProfile": {
       "title": "UserProfile",
-      "description": "Public user profile and role",
+      "description": "User profile records and preferences",
       "type": "object",
       "properties": {
         "uid": { "type": "string", "maxLength": 128 },
         "email": { "type": "string", "maxLength": 120 },
         "displayName": { "type": "string", "maxLength": 80 },
+        "phoneNumber": { "type": "string", "maxLength": 30 },
+        "district": { "type": "string", "maxLength": 50 },
+        "bio": { "type": "string", "maxLength": 300 },
+        "avatarUrl": { "type": "string", "maxLength": 500 },
+        "preferredLanguage": { "type": "string", "enum": ["ar", "en"] },
         "role": { "type": "string", "enum": ["user", "merchant", "admin"] },
-        "createdAt": { "type": "string" }
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
       },
       "required": ["uid", "email", "role"]
+    },
+    "Booking": {
+      "title": "Booking",
+      "description": "Customer table or appointment reservation",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "businessId": { "type": "string", "maxLength": 128 },
+        "businessName": { "type": "string", "maxLength": 100 },
+        "businessNameAr": { "type": "string", "maxLength": 100 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "customerName": { "type": "string", "maxLength": 80 },
+        "customerPhone": { "type": "string", "maxLength": 30 },
+        "customerEmail": { "type": "string", "maxLength": 120 },
+        "date": { "type": "string", "maxLength": 20 },
+        "time": { "type": "string", "maxLength": 20 },
+        "guestsCount": { "type": "number" },
+        "specialRequests": { "type": "string", "maxLength": 500 },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "declined", "cancelled"] },
+        "merchantNotes": { "type": "string", "maxLength": 500 },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["businessId", "customerName", "customerPhone", "date", "time", "guestsCount", "status"]
     }
   },
   "firestore": {
@@ -75,6 +105,10 @@
     "/users/{userId}": {
       "schema": "UserProfile",
       "description": "User profile records"
+    },
+    "/bookings/{bookingId}": {
+      "schema": "Booking",
+      "description": "Customer reservations and bookings"
     }
   }
 }

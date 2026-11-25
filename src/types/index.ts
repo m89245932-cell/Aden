@@ -25,6 +25,7 @@ export interface Business {
   leads: number;
   lat?: number;
   lng?: number;
+  acceptsBookings?: boolean;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -64,8 +65,35 @@ export interface UserProfile {
   uid: string;
   email: string;
   displayName: string;
+  phoneNumber?: string;
+  district?: string;
+  bio?: string;
+  avatarUrl?: string;
+  preferredLanguage?: 'ar' | 'en';
   role: 'user' | 'merchant' | 'admin';
   createdAt?: string;
+  updatedAt?: string;
+}
+
+export type BookingStatus = 'pending' | 'confirmed' | 'declined' | 'cancelled';
+
+export interface Booking {
+  id: string;
+  businessId: string;
+  businessName: string;
+  businessNameAr: string;
+  userId: string;
+  customerName: string;
+  customerPhone: string;
+  customerEmail?: string;
+  date: string; // YYYY-MM-DD
+  time: string; // e.g. "13:30" or "08:00 PM"
+  guestsCount: number;
+  specialRequests?: string;
+  status: BookingStatus;
+  merchantNotes?: string;
+  createdAt: string;
+  updatedAt?: string;
 }
 
 export interface PricingPlan {

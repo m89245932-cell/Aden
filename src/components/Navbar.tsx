@@ -13,7 +13,8 @@ import {
   X,
   Compass,
   Store,
-  Layers
+  Layers,
+  Calendar
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -38,6 +39,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const navItems = [
     { id: 'home', label: t('home'), icon: Compass },
     { id: 'listings', label: t('listings'), icon: Layers },
+    ...(user ? [{ id: 'profile', label: lang === 'ar' ? 'حجوزاتي وملفي' : 'My Bookings', icon: Calendar }] : []),
     { id: 'pricing', label: t('pricing'), icon: Store },
   ];
 
@@ -145,8 +147,9 @@ export const Navbar: React.FC<NavbarProps> = ({
           {user ? (
             <div className="flex items-center gap-2">
               <div
-                onClick={() => handleNavClick(isAdmin ? 'admin-dashboard' : 'merchant-dashboard')}
+                onClick={() => handleNavClick('profile')}
                 className="flex items-center gap-2 cursor-pointer text-xs font-bold px-3 py-2 rounded-xl bg-sky-50 dark:bg-sky-950/70 text-sky-900 dark:text-sky-200 border border-sky-200 dark:border-sky-800 hover:border-sky-400"
+                title={lang === 'ar' ? 'الملف الشخصي والحجوزات' : 'Profile & Bookings'}
               >
                 <User className="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
                 <span className="truncate max-w-[110px]">{user.displayName}</span>
@@ -210,7 +213,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             </button>
             {user ? (
               <div className="flex items-center gap-3">
-                <span className="text-xs font-semibold text-slate-700 dark:text-slate-300">{user.displayName}</span>
+                <button
+                  onClick={() => handleNavClick('profile')}
+                  className="text-xs font-semibold text-slate-700 dark:text-slate-300 hover:text-sky-600 underline"
+                >
+                  {user.displayName}
+                </button>
                 <button onClick={logout} className="text-xs text-rose-500 font-bold">{t('signOut')}</button>
               </div>
             ) : (
@@ -237,6 +245,16 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               {t('listings')}
             </button>
+            {user && (
+              <button
+                onClick={() => handleNavClick('profile')}
+                className={`text-right rtl:text-right ltr:text-left py-2 px-3 rounded-lg text-sm font-semibold ${
+                  activePage === 'profile' ? 'bg-sky-50 dark:bg-sky-950/60 text-sky-600 dark:text-sky-400 font-bold' : ''
+                }`}
+              >
+                {lang === 'ar' ? 'حجوزاتي وملفي الشخصي' : 'My Bookings & Profile'}
+              </button>
+            )}
             <button
               onClick={() => handleNavClick('pricing')}
               className={`text-right rtl:text-right ltr:text-left py-2 px-3 rounded-lg text-sm font-semibold ${
