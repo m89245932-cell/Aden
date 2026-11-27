@@ -24,6 +24,11 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+function cacheUserProfile(profile: UserProfile): void {
+  const { phoneNumber: _phoneNumber, ...cacheSafeProfile } = profile;
+  localStorage.setItem('adengo_user_cache', JSON.stringify(cacheSafeProfile));
+}
+
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<UserProfile | null>(() => {
     const cached = localStorage.getItem('adengo_user_cache');
@@ -61,7 +66,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           role
         };
         setUser(profile);
-        localStorage.setItem('adengo_user_cache', JSON.stringify(profile));
+        cacheUserProfile(profile);
         // Save to Firestore asynchronously
         saveUserProfile(profile).catch(() => {});
       } else {
@@ -97,7 +102,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         role
       };
       setUser(profile);
-      localStorage.setItem('adengo_user_cache', JSON.stringify(profile));
+      cacheUserProfile(profile);
       saveUserProfile(profile).catch(() => {});
     } catch (error) {
       console.warn('Google sign-in popup encountered error, falling back to demo session:', error);
@@ -121,7 +126,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       createdAt: new Date().toISOString()
     };
     setUser(profile);
-    localStorage.setItem('adengo_user_cache', JSON.stringify(profile));
+    cacheUserProfile(profile);
     saveUserProfile(profile).catch(() => {});
   };
 
@@ -138,7 +143,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       createdAt: new Date().toISOString()
     };
     setUser(profile);
-    localStorage.setItem('adengo_user_cache', JSON.stringify(profile));
+    cacheUserProfile(profile);
     saveUserProfile(profile).catch(() => {});
   };
 
@@ -159,7 +164,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       createdAt: new Date().toISOString()
     };
     setUser(profile);
-    localStorage.setItem('adengo_user_cache', JSON.stringify(profile));
+    cacheUserProfile(profile);
     saveUserProfile(profile).catch(() => {});
   };
 
@@ -171,7 +176,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       updatedAt: new Date().toISOString()
     };
     setUser(updated);
-    localStorage.setItem('adengo_user_cache', JSON.stringify(updated));
+    cacheUserProfile(updated);
     await saveUserProfile(updated);
   };
 
