@@ -3,7 +3,7 @@ import { useLanguage } from '../context/LanguageContext';
 import { useAuth } from '../context/AuthContext';
 import { Business, Booking, BookingStatus } from '../types/index';
 import { ADEN_DISTRICTS, CATEGORIES } from '../data/seedData';
-import { validateBusinessInput, calculateConversionRate, formatWhatsAppUrl } from '../utils/directoryLogic';
+import { validateBusinessInput, calculateConversionRate, formatWhatsAppUrl, sanitizePhoneNumber } from '../utils/directoryLogic';
 import { createBusiness, updateBusiness, deleteBusiness } from '../services/businessService';
 import { fetchMerchantBookings, updateBookingStatus } from '../services/bookingService';
 import {
@@ -662,7 +662,7 @@ export const MerchantDashboard: React.FC<MerchantDashboardProps> = ({
                       </button>
 
                       <a
-                        href={`tel:${b.customerPhone}`}
+                        href={`tel:${sanitizePhoneNumber(b.customerPhone)}`}
                         className="flex items-center gap-1.5 py-2 px-3.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs hover:bg-slate-100 dark:hover:bg-slate-800 transition"
                       >
                         <Phone className="w-3.5 h-3.5 text-sky-500" />

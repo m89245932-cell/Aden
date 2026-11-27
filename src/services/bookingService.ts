@@ -31,7 +31,11 @@ function getCachedBookings(): Booking[] {
 // Helper to save local cache
 function saveCachedBookings(bookings: Booking[]): void {
   try {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(bookings));
+    const cacheSafeBookings = bookings.map((booking) => ({
+      ...booking,
+      customerPhone: ''
+    }));
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(cacheSafeBookings));
   } catch {
     // Ignore storage quota errors
   }
